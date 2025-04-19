@@ -118,6 +118,11 @@ async def pt_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
     return WAITING_FOR_PT    # 继续会话
 
 
+async def error(update: Update, context: ContextTypes.DEFAULT_TYPE):
+    print(f'Update {update} caused error {context.error}')
+
+
+
 application = ApplicationBuilder().token(TOKEN).proxy_url(proxy_url).get_updates_proxy_url(proxy_url).build()#使用代理
 #application = ApplicationBuilder().token(TOKEN).build()#不使用代理
 
@@ -153,6 +158,7 @@ pt_handler = ConversationHandler(
 )
 application.add_handler(pt_handler)
 
+application.add_error_handler(error)
 
 application.run_polling(poll_interval=2)  # 每 2 秒轮询一次
 
