@@ -86,7 +86,7 @@ async def translate_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
         return  # 直接返回，不回复该用户
     user_text = update.message.text  # 获取用户输入的文本
     chat = context.user_data.get('chat_entity')
-    assistant_response = chat.chat(f"请用学术语言将以下内容翻译成中文: {user_text}")
+    assistant_response = chat.chat(f"请用学术语言将以下内容准确翻译成中文，仅提供翻译结果，不要添加任何额外的解释: {user_text}")
     await update.message.reply_text(assistant_response)
     chat.clear_history()
     return WAITING_FOR_TRANSLATE    # 继续会话
